@@ -1,20 +1,9 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
-import {login} from '../utils/authService';
+import useFormInput from '../utils/hooks/useFormInput'
+import apiService from '../utils/apiService';
 import {ROUTES} from '../utils/constants/ROUTES';
 import {authToken} from '../utils/constants/API_CONSTANTS';
-
-const useFormInput = (initialValue:string) => {
-    const [value, setValue] = useState(initialValue);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-    }
-    return {
-        value,
-        onChange: handleChange
-    }
-}
 
 export default function LoginForm() {
     const username = useFormInput('');
@@ -27,13 +16,16 @@ export default function LoginForm() {
     }
 
     const handleLogin = (username: string, password: string) => {
-            login(username, password);
-            if(sessionStorage[authToken]){
+        const payload = {username: username, password: password};
+        apiService.authorize(payload).then(response => {
+            if(response){
+                sessionStorage.setItem(authToken, response);
                 history.replace(ROUTES.SERVER_LIST);
                 setHasLoginError(false);
             } else {
                 setHasLoginError(true);
             }
+        });
     }
 
     return(
