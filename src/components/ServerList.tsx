@@ -31,12 +31,20 @@ export const ServerList = () => {
         if (sortConfig !== null) {
             if (sortConfig.key === 'name') {
                 sortedServerList.sort((a, b) => {
-                    if (a.name < b.name) {
+                    if (a.name.split('#')[0] < b.name.split('#')[0]) {
                         return sortConfig.direction === 'ascending' ? -1 : 1;
                     }
-                    if (a.name > b.name) {
+                    if (a.name.split('#')[0] > b.name.split('#')[0]) {
                         return sortConfig.direction === 'ascending' ? 1 : -1;
                     }
+                    if (a.name.split('#')[1] < b.name.split('#')[1]) {
+                        return sortConfig.direction === 'ascending' ? -1 : 1;
+                    }
+                    if (a.name.split('#')[1] > b.name.split('#')[1]) {
+                        console.log(b.name.split('#')[1]);
+                        return sortConfig.direction === 'ascending' ? 1 : -1;
+                    }
+                   
                     return 0;
                 });
             }
