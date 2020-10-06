@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom'
 import {login} from '../utils/authService';
+import {ROUTES} from '../utils/constants/ROUTES';
+import {authToken} from '../utils/constants/API_CONSTANTS';
 
 const useFormInput = (initialValue:string) => {
     const [value, setValue] = useState(initialValue);
@@ -13,17 +16,25 @@ const useFormInput = (initialValue:string) => {
     }
 }
 
-const handleLogin = (username: string, password: string) => {
-    login(username, password);
-}
-
-
 export default function LoginForm() {
     const username = useFormInput('');
     const password = useFormInput('');
-    const authToken = sessionStorage.getItem('auth-token');
-    const authError = authToken === 'error';
+    const history = useHistory();
+    const[hasLoginError, setHasLoginError] = useState(false);
 
+    if(sessionStorage[authToken]) {
+        history.replace(ROUTES.SERVER_LIST);
+    }
+
+    const handleLogin = (username: string, password: string) => {
+            login(username, password);
+            if(sessionStorage[authToken]){
+                history.replace(ROUTES.SERVER_LIST);
+                setHasLoginError(false);
+            } else {
+                setHasLoginError(true);
+            }
+    }
 
     return(
         <div>
@@ -50,7 +61,7 @@ export default function LoginForm() {
                     placeholder='password'
                 />
             </div>
-            {authError &&
+            {hasLoginError &&
             <div>
                 <><small style={{ color: 'red' }}>Username or password are incorrect</small><br /></>
             </div>
