@@ -5,9 +5,9 @@ import {
   Route
 } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
-import {ServerList} from '../components/ServerList';
+import { ServerList } from '../components/ServerList';
 import Navbar from '../components/Navbar';
-import {ROUTES} from '../utils/constants/ROUTES';
+import { ROUTES } from '../utils/constants/ROUTES';
 import '../styles/App.css';
 
 function App() {
@@ -16,20 +16,20 @@ function App() {
       <Navbar />
       <div className="App">
         <Switch>
-          <Route 
+          <Route
             path={ROUTES.LOGIN}
           >
-          <LoginForm />
+            <LoginForm />
           </Route>
-          <Route 
+          <Route
             path={ROUTES.SERVER_LIST}
           >
-          <ServerList />
+            <ServerList />
           </Route>
         </Switch>
       </div>
     </Router>
-    
+
   );
 }
 

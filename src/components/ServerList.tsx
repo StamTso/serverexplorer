@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom'
 import apiService from '../utils/apiService';
 import { ROUTES } from '../utils/constants/ROUTES';
 import { authToken } from '../utils/constants/API_CONSTANTS';
+import { ORDER, SERVERLIST_KEYS } from '../utils/constants/SERVERLIST_CONSTANTS';
+import '../styles/ServerList.css';
 
 type Server = {
     name: string,
@@ -29,35 +31,35 @@ export const ServerList = () => {
     useEffect(() => setServerList(serverList => {
         let sortedServerList = [...serverList];
         if (sortConfig !== null) {
-            if (sortConfig.key === 'name') {
+            if (sortConfig.key === SERVERLIST_KEYS.NAME) {
                 sortedServerList.sort((a, b) => {
                     const [currentServerCountry, currentServerNumber] = a.name.split('#');
-                    const [nextServerCountry, nextServerNumber]= b.name.split('#');
+                    const [nextServerCountry, nextServerNumber] = b.name.split('#');
 
                     if (currentServerCountry < nextServerCountry) {
-                        return sortConfig.direction === 'ascending' ? -1 : 1;
+                        return sortConfig.direction === ORDER.ASCENDING ? -1 : 1;
                     }
                     if (currentServerCountry > nextServerCountry) {
-                        return sortConfig.direction === 'ascending' ? 1 : -1;
+                        return sortConfig.direction === ORDER.ASCENDING ? 1 : -1;
                     }
                     if (parseInt(currentServerNumber) < parseInt(nextServerNumber)) {
-                        return sortConfig.direction === 'ascending' ? -1 : 1;
+                        return sortConfig.direction === ORDER.ASCENDING ? -1 : 1;
                     }
                     if (parseInt(currentServerNumber) > parseInt(nextServerNumber)) {
-                        return sortConfig.direction === 'ascending' ? 1 : -1;
+                        return sortConfig.direction === ORDER.ASCENDING ? 1 : -1;
                     }
-                   
+
                     return 0;
                 });
             }
 
-            if (sortConfig.key === 'distance') {
+            if (sortConfig.key === SERVERLIST_KEYS.DISTANCE) {
                 sortedServerList.sort((a, b) => {
                     if (a.distance < b.distance) {
-                        return sortConfig.direction === 'ascending' ? -1 : 1;
+                        return sortConfig.direction === ORDER.ASCENDING ? -1 : 1;
                     }
                     if (a.distance > b.distance) {
-                        return sortConfig.direction === 'ascending' ? 1 : -1;
+                        return sortConfig.direction === ORDER.ASCENDING ? 1 : -1;
                     }
                     return 0;
                 });
@@ -68,20 +70,29 @@ export const ServerList = () => {
     }), [sortConfig]);
 
     const onSortColumn = (key: string) => {
-        let direction = 'ascending';
-        if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
-            direction = 'descending';
+        let direction = ORDER.ASCENDING;
+        if (sortConfig && sortConfig.key === key && sortConfig.direction === ORDER.ASCENDING) {
+            direction = ORDER.DESCENDING;
         }
         setSortConfig({ key, direction });
     }
 
     return (
-        <div>
+        <div
+            className='table-container'
+        >
             <table>
                 <thead>
                     <tr>
-                        <th onClick={() => onSortColumn('name')}>Servers</th>
-                        <th onClick={() => onSortColumn('distance')}>Distance</th>
+                        <th
+                            onClick={() => onSortColumn(SERVERLIST_KEYS.NAME)}
+                        >Servers
+                        </th>
+                        <th
+                            onClick={() => onSortColumn(SERVERLIST_KEYS.DISTANCE)}
+                        >
+                            Distance
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

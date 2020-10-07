@@ -2,11 +2,11 @@ import React from 'react';
 import '../styles/Navbar.css';
 
 export default function Navbar() {
-    return(
+    return (
         <nav>
-          <span className="navbar-brand">
-            <h1>Server Explorer</h1>
-          </span>
+            <span className="navbar-brand">
+                <h1>Server Explorer</h1>
+            </span>
         </nav>
     )
 }
