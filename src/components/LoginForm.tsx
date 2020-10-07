@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
-import useFormInput from '../utils/hooks/useFormInput'
+import useFormInput from '../hooks/useFormInput'
 import apiService from '../utils/apiService';
 import { ROUTES } from '../utils/constants/ROUTES';
 import { authToken } from '../utils/constants/API_CONSTANTS';
@@ -17,8 +17,9 @@ export default function LoginForm() {
         history.replace(ROUTES.SERVER_LIST);
     }
 
-    const handleLogin = (username: string, password: string) => {
-        const payload = { username: username, password: password };
+    const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const payload = { username: username.value, password: password.value };
 
         if (payload.username === '' || payload.password === '') {
             hasLoginError && setHasLoginError(false);
@@ -43,58 +44,61 @@ export default function LoginForm() {
         <div
             className='login-container'
         >
-            <div
-                className='login-title'
+            <form
+                onSubmit={e => handleLogin(e)}
             >
-                <p>LOG INTO SERVER EXPLORER</p><br /><br />
-            </div>
-            <div
-                className='login-label'
-            >
-                <input
-                    className=' login-input'
-                    type='text'
-                    {...username}
-                    placeholder='username'
-
-                />
-            </div>
-            <div>
-
-            </div>
-            <div
-                className='login-label'
-            >
-                <input
-                    className=' login-input'
-                    type='password'
-                    {...password}
-                    placeholder='password'
-                />
-            </div>
-            {hasLoginError &&
                 <div
-                    className='login-error'
+                    className='login-title'
                 >
-                    <><small style={{ color: 'red' }}>Username or password are incorrect</small><br /></>
+                    <p>LOG INTO SERVER EXPLORER</p><br /><br />
                 </div>
-            }
-            {hasEmptyInputs &&
                 <div
-                    className='login-error'
+                    className='login-label'
                 >
-                    <><small style={{ color: 'red' }}>Login fields cannot be empty</small><br /></>
-                </div>
-            }
+                    <input
+                        className=' login-input'
+                        type='text'
+                        {...username}
+                        placeholder='username'
 
-            <div>
-                <input
-                    className='login-button'
-                    type='button'
-                    value='Log In'
-                    onClick={() => handleLogin(username.value, password.value)}
-                />
-            </div>
+                    />
+                </div>
+                <div>
+
+                </div>
+                <div
+                    className='login-label'
+                >
+                    <input
+                        className=' login-input'
+                        type='password'
+                        {...password}
+                        placeholder='password'
+                    />
+                </div>
+                {hasLoginError &&
+                    <div
+                        className='login-error'
+                    >
+                        <><small style={{ color: 'red' }}>Username or password are incorrect</small><br /></>
+                    </div>
+                }
+                {hasEmptyInputs &&
+                    <div
+                        className='login-error'
+                    >
+                        <><small>Login fields cannot be empty</small><br /></>
+                    </div>
+                }
+
+                <div>
+                    <input
+                        className='login-button'
+                        type='submit'
+                        value='Log In'
+                    />
+                </div>
+            </form>
         </div>
     )
 }

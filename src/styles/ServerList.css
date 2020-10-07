@@ -17,4 +17,8 @@ th, td {
     padding: 5px;
   }
 
+.order-icon {
+    float: right
+}
+
 tr:nth-child(even){background-color: #f2f2f2}

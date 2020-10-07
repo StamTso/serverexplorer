@@ -4,6 +4,8 @@ import apiService from '../utils/apiService';
 import { ROUTES } from '../utils/constants/ROUTES';
 import { authToken } from '../utils/constants/API_CONSTANTS';
 import { ORDER, SERVERLIST_KEYS } from '../utils/constants/SERVERLIST_CONSTANTS';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import '../styles/ServerList.css';
 
 type Server = {
@@ -77,6 +79,19 @@ export const ServerList = () => {
         setSortConfig({ key, direction });
     }
 
+    const getOrderIcon = (column: string) => {
+        if (!sortConfig) {
+            return;
+        }
+
+        if (sortConfig.key === column && sortConfig.direction === ORDER.ASCENDING) {
+            return <FontAwesomeIcon icon={faAngleUp} />
+        }
+        if (sortConfig.key === column && sortConfig.direction === ORDER.DESCENDING) {
+            return <FontAwesomeIcon icon={faAngleDown} />
+        }
+    }
+
     return (
         <div
             className='table-container'
@@ -86,12 +101,23 @@ export const ServerList = () => {
                     <tr>
                         <th
                             onClick={() => onSortColumn(SERVERLIST_KEYS.NAME)}
-                        >Servers
+                        >
+                            Servers
+                            <div
+                                className={'order-icon'}
+                            >
+                                {getOrderIcon(SERVERLIST_KEYS.NAME)}
+                            </div>
                         </th>
                         <th
                             onClick={() => onSortColumn(SERVERLIST_KEYS.DISTANCE)}
                         >
                             Distance
+                            <div
+                                className={'order-icon'}
+                            >
+                                {getOrderIcon(SERVERLIST_KEYS.DISTANCE)}
+                            </div>
                         </th>
                     </tr>
                 </thead>
