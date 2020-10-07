@@ -31,17 +31,19 @@ export const ServerList = () => {
         if (sortConfig !== null) {
             if (sortConfig.key === 'name') {
                 sortedServerList.sort((a, b) => {
-                    if (a.name.split('#')[0] < b.name.split('#')[0]) {
+                    const [currentServerCountry, currentServerNumber] = a.name.split('#');
+                    const [nextServerCountry, nextServerNumber]= b.name.split('#');
+
+                    if (currentServerCountry < nextServerCountry) {
                         return sortConfig.direction === 'ascending' ? -1 : 1;
                     }
-                    if (a.name.split('#')[0] > b.name.split('#')[0]) {
+                    if (currentServerCountry > nextServerCountry) {
                         return sortConfig.direction === 'ascending' ? 1 : -1;
                     }
-                    if (a.name.split('#')[1] < b.name.split('#')[1]) {
+                    if (parseInt(currentServerNumber) < parseInt(nextServerNumber)) {
                         return sortConfig.direction === 'ascending' ? -1 : 1;
                     }
-                    if (a.name.split('#')[1] > b.name.split('#')[1]) {
-                        console.log(b.name.split('#')[1]);
+                    if (parseInt(currentServerNumber) > parseInt(nextServerNumber)) {
                         return sortConfig.direction === 'ascending' ? 1 : -1;
                     }
                    

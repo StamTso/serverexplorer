@@ -6,11 +6,14 @@ import {
 } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import {ServerList} from '../components/ServerList';
+import Navbar from '../components/Navbar';
 import {ROUTES} from '../utils/constants/ROUTES';
+import '../styles/App.css';
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <div className="App">
         <Switch>
           <Route 
