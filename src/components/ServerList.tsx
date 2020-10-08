@@ -13,11 +13,16 @@ type Server = {
     distance: number
 }
 
+type SortConfig = {
+    key: string,
+    direction: string
+}
+
 type ServerList = Array<Server>;
 
 export const ServerList = () => {
     const [serverList, setServerList] = useState<ServerList>([]);
-    const [sortConfig, setSortConfig] = useState<{ key: string, direction: string } | null>(null);
+    const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
     const history = useHistory();
 
     if (!sessionStorage[authToken]) {
@@ -30,7 +35,7 @@ export const ServerList = () => {
         });
     }, []);
 
-    useEffect(() => setServerList(serverList => {
+    useEffect(() => setServerList((serverList: ServerList) => {
         let sortedServerList = [...serverList];
         if (sortConfig !== null) {
             if (sortConfig.key === SERVERLIST_KEYS.NAME) {
@@ -105,6 +110,7 @@ export const ServerList = () => {
                             Servers
                             <div
                                 className={'order-icon'}
+                                data-testid={`order-icon-${sortConfig?.key}-${sortConfig?.direction}`}
                             >
                                 {getOrderIcon(SERVERLIST_KEYS.NAME)}
                             </div>
@@ -123,9 +129,12 @@ export const ServerList = () => {
                 </thead>
                 <tbody>
                     {
-                        serverList.map((server: Server) => {
+                        serverList.map((server: Server, index:number) => {
                             return (
-                                <tr>
+                                <tr
+                                    key={index}
+                                    data-testid='server-row'
+                                >
                                     <td>{server.name}</td>
                                     <td>{server.distance}</td>
                                 </tr>
