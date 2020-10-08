@@ -4,6 +4,7 @@ import useFormInput from '../hooks/useFormInput'
 import apiService from '../utils/apiService';
 import { ROUTES } from '../utils/constants/ROUTES';
 import { authToken } from '../utils/constants/API_CONSTANTS';
+import {AUTH_ERROR, INPUT_ERROR} from '../utils/constants/ERROR_MESSAGES';
 import '../styles/LoginForm.css';
 
 export default function LoginForm() {
@@ -80,14 +81,14 @@ export default function LoginForm() {
                     <div
                         className='login-error'
                     >
-                        <><small style={{ color: 'red' }}>Username or password are incorrect</small><br /></>
+                        <><small>{AUTH_ERROR}</small><br /></>
                     </div>
                 }
                 {hasEmptyInputs &&
                     <div
                         className='login-error'
                     >
-                        <><small>Login fields cannot be empty</small><br /></>
+                        <><small>{INPUT_ERROR}</small><br /></>
                     </div>
                 }
 
