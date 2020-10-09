@@ -1,9 +1,9 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import {render, screen, fireEvent} from '@testing-library/react';
-import LoginForm from '../components/LoginForm';
-import {AUTH_ERROR, INPUT_ERROR} from '../utils/constants/ERROR_MESSAGES';
-import { PROTOCOL, BASEURL } from '../utils/constants/API_CONSTANTS';
+import LoginForm from './LoginForm';
+import {AUTH_ERROR, INPUT_ERROR} from '../../utils/constants/ERROR_MESSAGES';
+import { PROTOCOL, BASEURL } from '../../utils/constants/API_CONSTANTS';
 
 describe('Login form', ()=> {
     const setup = () => {

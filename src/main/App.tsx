@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
-import { store } from '../store.js';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
-import LoginForm from '../components/LoginForm';
-import { ServerList } from '../components/ServerList';
-import Navbar from '../components/Navbar';
+import LoginForm from '../components/LoginForm/LoginForm';
+import { ServerList } from '../components/ServerList/ServerList';
+import Navbar from '../components/Navbar/Navbar';
 import { ROUTES } from '../utils/constants/ROUTES';
-import '../styles/App.css';
+import './App.css';
 
 function App() {
   return (

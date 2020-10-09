@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
-import useFormInput from '../hooks/useFormInput'
-import apiService from '../utils/apiService';
-import { ROUTES } from '../utils/constants/ROUTES';
-import { AUTH_TOKEN } from '../utils/constants/API_CONSTANTS';
-import {AUTH_ERROR, INPUT_ERROR} from '../utils/constants/ERROR_MESSAGES';
-import '../styles/LoginForm.css';
+import useFormInput from '../../hooks/useFormInput'
+import apiService from '../../utils/apiService';
+import { ROUTES } from '../../utils/constants/ROUTES';
+import { AUTH_TOKEN } from '../../utils/constants/API_CONSTANTS';
+import { AUTH_ERROR, INPUT_ERROR } from '../../utils/constants/ERROR_MESSAGES';
+import './styles/LoginForm.css';
 
 export default function LoginForm() {
     const username = useFormInput('');

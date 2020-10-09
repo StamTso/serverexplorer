@@ -1,20 +1,9 @@
-import React, {createContext, useReducer, Dispatch} from 'react';
-import {ServerList} from "./components/ServerList";
-
-type Server = {
-    name: string,
-    distance: number
-}
-
-type SortConfig = {
-    key: string,
-    direction: string
-};
-
-type ServerList = Array<Server>;
+import React, { createContext, useReducer, Dispatch } from 'react';
+import ACTION_TYPES from './utils/constants/ACTION_TYPES'
+import { SortConfig, ServersList } from './types/index';
 
 type InitialState = {
-    serverList: ServerList;
+    serverList: ServersList;
     sortConfig: SortConfig | null
 };
 
@@ -28,19 +17,17 @@ const initialState = {
     sortConfig: null
 };
 
-const store = createContext<{state: InitialState; dispatch: Dispatch<any>}>({state: initialState, dispatch: () => null});
+const store = createContext<{ state: InitialState; dispatch: Dispatch<any> }>({ state: initialState, dispatch: () => null });
 const { Provider } = store;
 
-const StateProvider: React.FC = ( { children } ) => {
+const StateProvider: React.FC = ({ children }) => {
     const [state, dispatch] = useReducer((state: InitialState, action: Action) => {
-        switch(action.type) {
-            case 'UPDATE_SERVERLIST':
-                console.log(action, state);
-                state.serverList.push(action.payload);
-                return state;
-            case 'UPDATE_SORTCONFIG':
-                state.sortConfig = action.payload;
-                return state;
+        switch (action.type) {
+            case ACTION_TYPES.UPDATE_SERVERLIST:
+                return  {...state, serverList: action.payload};
+            case ACTION_TYPES.UPDATE_SORTCONFIG:
+                const updatedState = {...state, sortConfig: action.payload};
+                return updatedState;
             default:
                 return state;
         };

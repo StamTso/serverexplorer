@@ -2,10 +2,10 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom'
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {mockServeList} from './mockServerList';
-import {ServerList} from "../components/ServerList";
-import { ORDER, SERVERLIST_KEYS } from '../utils/constants/SERVERLIST_CONSTANTS';
-import { protocol, baseUrl } from '../utils/constants/API_CONSTANTS';
+import {mockServeList} from './utils/mockServerList';
+import {ServerList} from "./ServerList";
+import { ORDER, SERVERLIST_KEYS } from '../../utils/constants/SERVERLIST_CONSTANTS';
+import { PROTOCOL, BASEURL } from '../../utils/constants/API_CONSTANTS';
 
 describe('Server List', () => {
     afterEach(() => {
@@ -30,7 +30,7 @@ describe('Server List', () => {
         render( <ServerList />, {wrapper: MemoryRouter});
 
         expect(window.fetch).toHaveBeenCalledWith(
-            `${protocol}://${baseUrl}/servers`,
+            `${PROTOCOL}://${BASEURL}/servers`,
             expect.objectContaining({
                 method: 'GET'
             }));
