@@ -2,10 +2,12 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom'
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {mockServeList} from './utils/mockServerList';
+import {mockServerList} from './utils/mockServerList';
 import {ServerList} from "./ServerList";
 import { ORDER, SERVERLIST_KEYS } from '../../utils/constants/SERVERLIST_CONSTANTS';
 import { PROTOCOL, BASEURL } from '../../utils/constants/API_CONSTANTS';
+import { StateProvider } from '../../store';
+import apiService from '../../utils/apiService';
 
 describe('Server List', () => {
     afterEach(() => {
@@ -13,7 +15,12 @@ describe('Server List', () => {
     });
 
     it('should render a table listing all servers', () => {
-        render( <ServerList />, {wrapper: MemoryRouter});
+        // @ts-ignore
+        render( 
+            <StateProvider>
+                <ServerList />
+            </StateProvider>, 
+            {wrapper: MemoryRouter});
         const serverTitle = screen.getByText('Servers');
         const distanceTitle = screen.getByText('Distance');
         expect(serverTitle).toBeInTheDocument();
@@ -25,9 +32,13 @@ describe('Server List', () => {
         // @ts-ignore
         window.fetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => (mockServeList),
+            json: async () => (mockServerList),
         });
-        render( <ServerList />, {wrapper: MemoryRouter});
+        render( 
+            <StateProvider>
+                <ServerList />
+            </StateProvider>, 
+            {wrapper: MemoryRouter});
 
         expect(window.fetch).toHaveBeenCalledWith(
             `${PROTOCOL}://${BASEURL}/servers`,
@@ -36,16 +47,20 @@ describe('Server List', () => {
             }));
         expect(window.fetch).toHaveBeenCalledTimes(1);
         const rows = await screen.findAllByTestId('server-row');
-        expect(rows.length).toEqual(mockServeList.length);
+        expect(rows.length).toEqual(mockServerList.length);
     });
 
     it('should sort column when header is clicked', async() => {
         // @ts-ignore
         window.fetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => (mockServeList),
+            json: async () => (mockServerList),
         });
-        render( <ServerList />, {wrapper: MemoryRouter});
+        render( 
+        <StateProvider>
+            <ServerList />
+        </StateProvider>, 
+        {wrapper: MemoryRouter});
 
         await userEvent.click(screen.getByText('Servers'));
         let icon = await screen.findByTestId(`order-icon-${SERVERLIST_KEYS.NAME}-${ORDER.ASCENDING}`);

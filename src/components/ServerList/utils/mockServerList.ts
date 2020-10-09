@@ -1,4 +1,4 @@
-export const  mockServeList =  [
+export const  mockServerList =  [
     {
         name:"Latvia #4",
         distance:585

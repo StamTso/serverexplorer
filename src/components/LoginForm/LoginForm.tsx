@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import useFormInput from '../../hooks/useFormInput'
 import apiService from '../../utils/apiService';
@@ -14,9 +14,11 @@ export default function LoginForm() {
     const [hasLoginError, setHasLoginError] = useState(false);
     const [hasEmptyInputs, setHasEmptyInputs] = useState(false);
 
-    if (sessionStorage[AUTH_TOKEN]) {
-        history.replace(ROUTES.SERVER_LIST);
-    }
+    useEffect(() => {
+        if (sessionStorage[AUTH_TOKEN]) {
+            history.replace(ROUTES.SERVER_LIST);
+        }
+    });
 
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,9 +33,11 @@ export default function LoginForm() {
         apiService.authorize(payload).then(response => {
             if (response) {
                 sessionStorage.setItem(AUTH_TOKEN, response);
-                history.replace(ROUTES.SERVER_LIST);
                 setHasLoginError(false);
                 hasEmptyInputs && setHasEmptyInputs(false);
+                debugger;
+                console.log(response);
+                history.replace(ROUTES.SERVER_LIST);
             } else {
                 setHasLoginError(true);
                 hasEmptyInputs && setHasEmptyInputs(false);

@@ -19,10 +19,14 @@ export const ServerList = () => {
         history.replace(ROUTES.LOGIN);
     }
 
-    useEffect(() => {
+    const updateServerList = () => {
         apiService.getServers().then((response: ServersList) => {
-            dispatch({type: ACTION_TYPES.UPDATE_SERVERLIST, payload: response})
-        });
+          dispatch({type: ACTION_TYPES.UPDATE_SERVERLIST, payload: response})
+      });
+    }
+
+    useEffect(() => {
+     updateServerList();
         // Disabling exaustive deps since dispatch doesn't change between renders
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -74,7 +78,7 @@ export const ServerList = () => {
                 </thead>
                 <tbody>
                     {
-                        serverList.map((server: Server, index: number) => {
+                        serverList?.map((server: Server, index: number) => {
                             return (
                                 <tr
                                     key={index}
