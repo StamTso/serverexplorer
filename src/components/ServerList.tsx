@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import apiService from '../utils/apiService';
 import { ROUTES } from '../utils/constants/ROUTES';
-import { authToken } from '../utils/constants/API_CONSTANTS';
+import { AUTH_TOKEN } from '../utils/constants/API_CONSTANTS';
 import { ORDER, SERVERLIST_KEYS } from '../utils/constants/SERVERLIST_CONSTANTS';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
@@ -25,7 +25,7 @@ export const ServerList = () => {
     const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
     const history = useHistory();
 
-    if (!sessionStorage[authToken]) {
+    if (!sessionStorage[AUTH_TOKEN]) {
         history.replace(ROUTES.LOGIN);
     }
 

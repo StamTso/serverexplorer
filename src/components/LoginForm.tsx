@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import useFormInput from '../hooks/useFormInput'
 import apiService from '../utils/apiService';
 import { ROUTES } from '../utils/constants/ROUTES';
-import { authToken } from '../utils/constants/API_CONSTANTS';
+import { AUTH_TOKEN } from '../utils/constants/API_CONSTANTS';
 import {AUTH_ERROR, INPUT_ERROR} from '../utils/constants/ERROR_MESSAGES';
 import '../styles/LoginForm.css';
 
@@ -14,7 +14,7 @@ export default function LoginForm() {
     const [hasLoginError, setHasLoginError] = useState(false);
     const [hasEmptyInputs, setHasEmptyInputs] = useState(false);
 
-    if (sessionStorage[authToken]) {
+    if (sessionStorage[AUTH_TOKEN]) {
         history.replace(ROUTES.SERVER_LIST);
     }
 
@@ -30,7 +30,7 @@ export default function LoginForm() {
 
         apiService.authorize(payload).then(response => {
             if (response) {
-                sessionStorage.setItem(authToken, response);
+                sessionStorage.setItem(AUTH_TOKEN, response);
                 history.replace(ROUTES.SERVER_LIST);
                 setHasLoginError(false);
                 hasEmptyInputs && setHasEmptyInputs(false);
