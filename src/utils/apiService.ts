@@ -1,4 +1,4 @@
-import { protocol, baseUrl, authToken } from './constants/API_CONSTANTS';
+import { PROTOCOL, AUTH_TOKEN, BASEURL } from './constants/API_CONSTANTS';
 
 type AuthPayload = {
     username: string;
@@ -7,7 +7,7 @@ type AuthPayload = {
 
 export default class apiService {
     static async authorize(payload: AuthPayload) {
-        const uri = `${protocol}://${baseUrl}/tokens`;
+        const uri = `${PROTOCOL}://${BASEURL}/tokens`;
         const fetchResult = await fetch(uri, {
             method: 'POST',
             body: JSON.stringify(payload),
@@ -20,10 +20,10 @@ export default class apiService {
     }
 
     static async getServers() {
-        const uri = `${protocol}://${baseUrl}/servers`;
+        const uri = `${PROTOCOL}://${BASEURL}/servers`;
         const fetchResult = await fetch(uri, {
             method: 'GET',
-            headers: new Headers({ 'Authorization': sessionStorage[authToken] })
+            headers: new Headers({ 'Authorization': sessionStorage[AUTH_TOKEN] })
         });
 
         return fetchResult.json();
