@@ -26,6 +26,9 @@ export default class apiService {
             headers: new Headers({ 'Authorization': sessionStorage[AUTH_TOKEN] })
         });
 
-        return fetchResult.json();
+        if(fetchResult.ok) {
+            return fetchResult.json();
+        }
+        return [];
     }
 }

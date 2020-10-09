@@ -21,13 +21,13 @@ export const ServerList = () => {
 
     const updateServerList = () => {
         apiService.getServers().then((response: ServersList) => {
-          dispatch({type: ACTION_TYPES.UPDATE_SERVERLIST, payload: response})
+          dispatch({type: ACTION_TYPES.UPDATE_SERVERLIST, payload: response })
       });
     }
 
     useEffect(() => {
-     updateServerList();
-        // Disabling exaustive deps since dispatch doesn't change between renders
+        updateServerList();
+        // Disabling exaustive deps since updateServerList doesn't change between renders
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

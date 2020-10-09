@@ -35,8 +35,6 @@ export default function LoginForm() {
                 sessionStorage.setItem(AUTH_TOKEN, response);
                 setHasLoginError(false);
                 hasEmptyInputs && setHasEmptyInputs(false);
-                debugger;
-                console.log(response);
                 history.replace(ROUTES.SERVER_LIST);
             } else {
                 setHasLoginError(true);
