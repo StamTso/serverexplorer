@@ -2,14 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './main/App';
-import { StateProvider } from './store.js';
+import { StateProvider } from './store';
 
-ReactDOM.render(
-  <React.StrictMode>
-      <StateProvider>
-          <App />
-      </StateProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+const app = (
+    <StateProvider>
+        <App />
+    </StateProvider>
 );
+
+ReactDOM.render(app, document.getElementById('root'));
 
