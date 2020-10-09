@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import {render, screen, fireEvent} from '@testing-library/react';
 import LoginForm from '../components/LoginForm';
 import {AUTH_ERROR, INPUT_ERROR} from '../utils/constants/ERROR_MESSAGES';
+import { PROTOCOL, BASEURL } from '../utils/constants/API_CONSTANTS';
 
 describe('Login form', ()=> {
     const setup = () => {
@@ -48,7 +49,7 @@ describe('Login form', ()=> {
         fireEvent.click(login);
 
         expect(window.fetch).toHaveBeenCalledWith(
-            'https://playground.tesonet.lt/v1/tokens',
+            `${PROTOCOL}://${BASEURL}/tokens`,
             expect.objectContaining({
                 method: 'POST',
                 body: JSON.stringify({username: 'user', password: 'pass'})

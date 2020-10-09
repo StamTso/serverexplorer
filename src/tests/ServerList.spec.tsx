@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import {mockServeList} from './mockServerList';
 import {ServerList} from "../components/ServerList";
 import { ORDER, SERVERLIST_KEYS } from '../utils/constants/SERVERLIST_CONSTANTS';
+import { protocol, baseUrl } from '../utils/constants/API_CONSTANTS';
 
 describe('Server List', () => {
     afterEach(() => {
@@ -29,7 +30,7 @@ describe('Server List', () => {
         render( <ServerList />, {wrapper: MemoryRouter});
 
         expect(window.fetch).toHaveBeenCalledWith(
-            'https://playground.tesonet.lt/v1/servers',
+            `${protocol}://${baseUrl}/servers`,
             expect.objectContaining({
                 method: 'GET'
             }));

@@ -1,3 +1,3 @@
-export const protocol = 'https';
-export const baseUrl = 'playground.tesonet.lt/v1';
-export const authToken = 'auth-token';
+export const PROTOCOL = 'https';
+export const BASEURL = 'playground.tesonet.lt/v1';
+export const AUTH_TOKEN = 'auth-token';
