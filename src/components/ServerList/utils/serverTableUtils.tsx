@@ -15,6 +15,7 @@ type SortConfig = {
     direction: string
 };
 
+//Handles the sorting for the columns
 export const getSortedTable = (serverList: ServerList, sortConfig: SortConfig | null) => {
     let sortedServerList = [...serverList];
     if (sortConfig !== null) {
@@ -57,6 +58,7 @@ export const getSortedTable = (serverList: ServerList, sortConfig: SortConfig | 
     return sortedServerList;
 }
 
+//Assigns the correct sort order icon
 export const getOrderIcon = (column: string, sortConfig: SortConfig | null) => {
     if (!sortConfig) {
         return;

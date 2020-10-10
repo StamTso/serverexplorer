@@ -20,6 +20,7 @@ const initialState = {
 const store = createContext<{ state: InitialState; dispatch: Dispatch<any> }>({ state: initialState, dispatch: () => null });
 const { Provider } = store;
 
+// Basic state provider for the store. For simplicity the implementation of the reducer is passed directly in the first callback
 const StateProvider: React.FC = ({ children }) => {
     const [state, dispatch] = useReducer((state: InitialState, action: Action) => {
         switch (action.type) {
@@ -36,4 +37,5 @@ const StateProvider: React.FC = ({ children }) => {
     return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 
+//store is exported for access to the state, StateProvider is used to wrap the elements in the DOM tree
 export { store, StateProvider };

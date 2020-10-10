@@ -78,6 +78,18 @@ export const ServerList = () => {
                 </thead>
                 <tbody>
                     {
+                        !serverList.length && 
+                            <tr
+                            data-testid='empty-server-list'
+                            >
+                                <td
+                                    colSpan={2}
+                                >
+                                    No available servers
+                                </td>
+                            </tr>
+                    }
+                    {
                         serverList?.map((server: Server, index: number) => {
                             return (
                                 <tr
