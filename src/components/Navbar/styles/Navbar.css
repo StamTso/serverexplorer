@@ -35,7 +35,7 @@ h1 {
     font-size: 16px;
 }
 
-.logout-button:hover {
+.logout-button:active {
     background-color: wheat;
     border: 2px solid #333;
     color: #333;
