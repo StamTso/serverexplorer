@@ -16,3 +16,33 @@ h1 {
     font-weight: 900;
     font-size: 25px;
 }
+
+.button-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 2%;
+}
+
+.logout-button {
+    background-color: #333;
+    border: 2px solid wheat;
+    color: wheat;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.logout-button:hover {
+    background-color: wheat;
+    border: 2px solid #333;
+    color: #333;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
