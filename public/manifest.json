@@ -1,9 +1,0 @@
-{
-  "short_name": "Server Explorer",
-  "name": "Server Explorer App",
-  "icons": [],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
-}
